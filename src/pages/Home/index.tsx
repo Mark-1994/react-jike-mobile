@@ -1,17 +1,10 @@
 import './style.css'
 import { Tabs } from 'antd-mobile'
-import { useState, useEffect } from 'react'
-// 导入类型区分一般的模块，加一个type关键字
-import type { ChannelItem } from '@/apis/list'
-import { fetchChannelAPI } from '@/apis/list'
+import { useTabs } from './useTabs'
 
 const Home = () => {
-  const [channels, setChannels] = useState<ChannelItem[]>([])
-  useEffect(() => {
-    fetchChannelAPI().then(res => {
-      setChannels(res.data.data.channels)
-    })
-  }, [])
+  // 组件中调用hook函数，消费其返回的状态和方法
+  const { channels } = useTabs()
   return (
     <div>
       <div className="tabContainer">
