@@ -7,6 +7,12 @@
     "types": ["vite/client"],
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
+    /* 配置路径别名：让VSCode做智能路径提示 */
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
