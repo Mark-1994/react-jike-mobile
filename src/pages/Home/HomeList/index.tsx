@@ -1,5 +1,5 @@
-import { Image, List } from 'antd-mobile'
-import { useState, useEffect } from 'react'
+import { Image, List, InfiniteScroll } from 'antd-mobile'
+import { useState } from 'react'
 import type { ListRes } from '@/apis/list'
 import { fetchListAPI } from '@/apis/list'
 
@@ -14,23 +14,27 @@ const HomeList = (props: Props) => {
     results: [],
     pre_timestamp: '' + new Date().getTime()
   })
-  useEffect(() => {
-    const getList = async () => {
-      try {
-        const res = await fetchListAPI({
-          channel_id: channelId,
-          timestamp: '' + new Date().getTime()
-        })
-        setListRes({
-          results: res.data.data.results,
-          pre_timestamp: res.data.data.pre_timestamp
-        })
-      } catch (error) {
-        throw new Error('fetch list error', { cause: error })
-      }
+  // 是否还有更多内容
+  const [hasMore, setHasMore] = useState(true)
+  // 加载更多的回调函数
+  const loadMore = async () => {
+    // 编写加载下一页的核心逻辑
+    try {
+      const res = await fetchListAPI({
+        channel_id: channelId,
+        timestamp: listRes.pre_timestamp
+      })
+      // 拼接新数据，存取下一次请求的时间戳
+      setListRes({
+        results: [...listRes.results, ...res.data.data.results],
+        pre_timestamp: res.data.data.pre_timestamp
+      })
+      // 判断是否还有更多内容
+      setHasMore(res.data.data.results.length > 0)
+    } catch (error) {
+      throw new Error('fetch list error', { cause: error })
     }
-    getList()
-  }, [channelId])
+  }
   return (
     <>
       <List>
@@ -40,6 +44,7 @@ const HomeList = (props: Props) => {
           </List.Item>
         ))}
       </List>
+      <InfiniteScroll loadMore={loadMore} hasMore={hasMore} threshold={10} />
     </>
   )
 }
