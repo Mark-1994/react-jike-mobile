@@ -30,4 +30,4 @@ jobs:
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: build # 部署 build 文件夹的内容
+          folder: dist # 部署 dist 文件夹的内容
