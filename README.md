@@ -1,75 +1,58 @@
-# React + TypeScript + Vite
+# 极客园移动端（react-jike-mobile）
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+基于 React 的移动端 Web 应用，对标 CSDN、博客园等竞品，致力于成为贴近年轻 IT 从业者的科技资讯类应用。功能包括：首页文章列表、文章详情、收藏等。
 
-Currently, two official plugins are available:
+## 在线演示
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 演示地址：<https://mark-1994.github.io/react-jike-mobile/>
 
-## React Compiler
+## 接口文档
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 接口文档地址：<https://s.apifox.cn/fa9274ac-362e-4905-806b-6135df6aa90e/api-23673257>
+- 接口基地址：`https://geek.itheima.net/v1_0`（已在 `src/utils/http.ts` 中配置）
 
-## Expanding the ESLint configuration
+> 说明：需要携带 token 的接口，请先调用登录接口获取 token，并添加到请求头 `Authorization` 中。
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 技术栈
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| 技术 | 说明 |
+| --- | --- |
+| React 19 | 前端核心框架 |
+| TypeScript | 类型安全的 JS 超集 |
+| Vite | 开发构建工具 |
+| antd-mobile 5 | 移动端 UI 组件库 |
+| react-router-dom 7 | 路由管理 |
+| Axios | HTTP 请求库 |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 快速开始
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 安装依赖
+npm install
 
+# 启动开发服务器
+npm run dev
+
+# 构建生产版本
+npm run build
+
+# 预览构建产物
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## 项目结构
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+react-jike-mobile
+├── public/              # 静态资源
+├── src/
+│   ├── apis/            # 接口请求（list、detail、stared）
+│   ├── pages/           # 页面组件（Home、Detail）
+│   ├── router/          # 路由配置
+│   ├── utils/           # 工具函数（axios 封装）
+│   ├── App.tsx          # 根组件
+│   └── main.tsx         # 入口文件
+├── index.html
+├── vite.config.ts
+└── package.json
 ```
