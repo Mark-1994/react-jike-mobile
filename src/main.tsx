@@ -1,5 +1,4 @@
 import { createRoot } from 'react-dom/client'
-import './index.css'
 // 导入provider高阶组件
 import { RouterProvider } from 'react-router-dom'
 // 导入router实例
