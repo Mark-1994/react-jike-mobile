@@ -20,7 +20,7 @@ export function fetchChannelAPI () {
 
 // 请求文章列表
 type ListItem = {
-  art_id: number,
+  art_id: string,
   title: string,
   aut_id: string,
   comm_count: number,
@@ -28,7 +28,7 @@ type ListItem = {
   aut_name: string,
   is_top: number,
   cover: {
-    type: string,
+    type: number,
     images: string[]
   }
 }

@@ -2,6 +2,7 @@ import { Image, List, InfiniteScroll } from 'antd-mobile'
 import { useState } from 'react'
 import type { ListRes } from '@/apis/list'
 import { fetchListAPI } from '@/apis/list'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   channelId: string
@@ -35,11 +36,15 @@ const HomeList = (props: Props) => {
       throw new Error('fetch list error', { cause: error })
     }
   }
+  const navigate = useNavigate()
+  const goToDetail = (id: string) => {
+    navigate(`/detail?id=${id}`)
+  }
   return (
     <>
       <List>
         {listRes.results.map((item) => (
-          <List.Item key={item.art_id} prefix={<Image src={item.cover.images?.[0]} style={{ borderRadius: 20 }} fit="cover" width={40} height={40} />} description={item.pubdate}>
+          <List.Item key={item.art_id} prefix={<Image src={item.cover.images?.[0]} style={{ borderRadius: 20 }} fit="cover" width={40} height={40} />} description={item.pubdate} onClick={() => goToDetail(item.art_id)}>
             {item.title}
           </List.Item>
         ))}
